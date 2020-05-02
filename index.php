@@ -1,9 +1,18 @@
+<?php
+session_start();
+
+//if(!isset($_SESSION['admin_name']) && !isset($_SESSION['password'])) {
+//    header("Location:views/admin/dashboard.php");
+//}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!--bannerremover style of 000w-->
     <style>img[alt="www.000webhost.com"]{display:none;}</style>
-	
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -33,11 +42,18 @@
     <div class="login_wrapper">
         <div class="animate form login_form">
             <section class="login_content">
-                <form action="views/admin/dashboard.html" method="post">
+                <form action="src/store/Login.php" method="post">
                     <h1>Log in your Account</h1>
                     <h5>
-
-
+                        <?php
+                        if(!empty($_GET['msg'])) {
+                            $var=$_GET['msg'];
+                            echo "<div class=\"alert alert-danger fade in alert-dismissable\">
+                                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\" title=\"close\">×</a>
+                                    $var
+                                    </div>";
+                        }
+                        ?>
                     </h5>
                     <div>
                         <input type="text" id="userName" name="userName" class="form-control" placeholder="Username" required="" />
