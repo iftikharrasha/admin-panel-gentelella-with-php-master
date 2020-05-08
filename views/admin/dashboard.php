@@ -1,9 +1,38 @@
+<?php
+
+session_start();
+
+if(!isset($_SESSION['admin_name']) && !isset($_SESSION['password'])) {
+    header("Location:../../index.php");
+}
+
+include ("../../src/common/DBConnection.php");
+
+$conn=new DBConnection();
+
+$notices=$conn->getOne("SELECT COUNT(id) TOTAL FROM notices WHERE status = 1");   //notification button
+$_SESSION["notice"] = $notices['TOTAL'];
+
+$allNotices=$conn->getAll("SELECT * FROM notices WHERE status = 1 ORDER BY id DESC");
+$_SESSION["notices"] = $allNotices;
+
+$totalNotices=$conn->getOne("SELECT COUNT(id) TOTAL FROM notices");       //total notice counts
+
+$recentNotices=$conn->getAll("SELECT * FROM notices ORDER BY id DESC");   //recent Notice list
+$_SESSION["recents"] = $recentNotices;
+
+$events=$conn->getOne("SELECT COUNT(id) TOTAL FROM live_events WHERE status = 1");
+
+$employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!--bannerremover style of 000w-->
     <style>img[alt="www.000webhost.com"]{display:none;}</style>
-	
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -38,7 +67,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="../admin/dashboard.html" class="site_title"><i class="fa fa-ils"></i> <span>Sunny Group</span></a>
+                    <a href="../admin/dashboard.php" class="site_title"><i class="fa fa-ils"></i> <span>Sunny Group</span></a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -65,23 +94,23 @@
                             <li>
                                 <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="../admin/dashboard.html">Dashboard</a></li>
+                                    <li><a href="../admin/dashboard.php">Dashboard</a></li>
                                 </ul>
                             </li>
 
         					<li>
                                 <a><i class="fa fa-industry"></i>Industry<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="../industry/departments.html">Departments</a></li>
-                                    <li><a href="../industry/designations.html">Designations</a></li>
+                                    <li><a href="../industry/departments.php">Departments</a></li>
+                                    <li><a href="../industry/designations.php">Designations</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a><i class="fa fa-users"></i>Employees<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="../employee/createEmployee.html">Create Employee</a></li>
-                                    <li><a href="../employee/employeeHistory.html">Employee History</a></li>
+                                    <li><a href="../employee/createEmployee.php">Create Employee</a></li>
+                                    <li><a href="../employee/employeeHistory.php">Employee History</a></li>
                                 </ul>
                             </li>
 
@@ -169,7 +198,7 @@
                     <a data-toggle="tooltip" data-placement="top" title="Dark Mode">
                         <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="../../index.html">
+                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="../../src/store/Logout.php">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -194,7 +223,7 @@
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
                                 <li><a href="javascript:;">Visit Profile</a></li>
         				            		<li><a href="javascript:;">Change Password</a></li>
-                                <li><a href="../../index.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                <li><a href="../../src/store/Logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                             </ul>
                         </li>
 
@@ -425,17 +454,17 @@
             <div class="row tile_count">
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Total Notices</span>
-                    <div><a href="#" class="count red">23</a></div>
+                    <div><a href="../../views/admin/noticeHistory.php" class="count red"><?=$totalNotices['TOTAL']?></a></div>
                     <span class="count_bottom"><i class="green">4% </i> From last Week</span>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-clock-o"></i> Total Events in live</span>
-                    <div class="count aero">7</div>
+                    <div class="count aero"><?=$events['TOTAL']?></div>
                     <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Employees</span>
-                    <div class="count green">302</div>
+                    <div><a href="../../views/employee/employeeHistory.php" class="count green"><?=$employees['TOTAL']?></a></div>
                     <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
