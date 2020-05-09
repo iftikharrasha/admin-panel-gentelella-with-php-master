@@ -1,9 +1,26 @@
+<?php
+
+session_start();
+
+if(!isset($_SESSION['admin_name']) && !isset($_SESSION['password'])) {
+    header("Location:../../index.php");
+}
+
+include '../../src/common/DBConnection.php';
+
+$conn=new DBConnection();
+
+$employee=$conn->getAll("SELECT * FROM `employees`");
+//$notices=$conn->getAll("SELECT * FROM `notices`");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!--bannerremover style of 000w-->
     <style>img[alt="www.000webhost.com"]{display:none;}</style>
-	
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -38,7 +55,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="../admin/dashboard.html" class="site_title"><i class="fa fa-ils"></i> <span>Sunny Group</span></a>
+                    <a href="../admin/dashboard.php" class="site_title"><i class="fa fa-ils"></i> <span>Sunny Group</span></a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -65,7 +82,7 @@
                             <li>
                                 <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="../admin/dashboard.html">Dashboard</a></li>
+                                    <li><a href="../admin/dashboard.php">Dashboard</a></li>
                                 </ul>
                             </li>
 
@@ -80,8 +97,8 @@
                             <li>
                                 <a><i class="fa fa-users"></i>Employees<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="../employee/createEmployee.html">Create Employee</a></li>
-                                    <li><a href="../employee/employeeHistory.html">Employee History</a></li>
+                                    <li><a href="../employee/createEmployee.php">Create Employee</a></li>
+                                    <li><a href="../employee/employeeHistory.php">Employee History</a></li>
                                 </ul>
                             </li>
 
@@ -169,7 +186,7 @@
                     <a data-toggle="tooltip" data-placement="top" title="Dark Mode">
                         <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="../../index.html">
+                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="../../src/store/Logout.php">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -194,7 +211,7 @@
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
                                 <li><a href="javascript:;">Visit Profile</a></li>
         				            		<li><a href="javascript:;">Change Password</a></li>
-                                <li><a href="../../index.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                <li><a href="../../src/store/Logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                             </ul>
                         </li>
 
@@ -426,19 +443,27 @@
 
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Notice <small>Board</small></h3>
+                      <h5>
+                            <?php
+                            if(!empty($_GET['message'])) {
+                                if($_GET['message']=="deletesuccess") {
+                                    echo "<div class=\"alert alert-success fade in alert-dismissable\">
+                                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\" title=\"close\">×</a>
+                                    Employee Data Successfully Deleted.
+                                    </div>";
+                                } else if($_GET['message']=="deletefailed") {
+                                    echo "<div class=\"alert alert-danger fade in alert-dismissable\">
+                                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\" title=\"close\">×</a>
+                                    Employee deletion Unfortunately Failed, Please Try Again Later
+                                    </div>";
+                                }
+                            }
+                            ?>
+                        </h5>
+                        <h3>Employee<small> History</small></h3>
                     </div>
 
-                    <div class="title_right">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for...">
-                                <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="clearfix"></div>
@@ -448,7 +473,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Manage <small>Notice</small></h2>
+                                <h2>Manage <small>employee</small></h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -472,36 +497,52 @@
 
                                 </p>
 
-                                <table id="datatable-buttons" class="table table-striped table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Notice Subject</th>
-                                        <th>Notice Date</th>
-                                        <th>Notice Time</th>
-                                        <th>Description</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
+                                <table width="100%" class="display nowrap table table-hover table-striped table-bordered dataTable" id="datatable-buttons" role="grid" aria-describedby="attendance123_info" style="width: 100%;" cellspacing="0">
+
+                                      <thead>
+                                        <tr role="row">
+                    						            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 100px;" aria-label="Employee Name: activate to sort column ascending" rowspan="1" colspan="1">First Name</th>
+                                            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 100px;" aria-label="Employee Name: activate to sort column ascending" rowspan="1" colspan="1">Last Name</th>
+                                            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 100px;" aria-label="Employee Name: activate to sort column ascending" rowspan="1" colspan="1">Username</th>
+                                            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 135px;" aria-label="Email: activate to sort column ascending" rowspan="1" colspan="1">Email</th>
+                    					             	<th tabindex="0" class="sorting_desc" aria-controls="attendance123" style="width: 30px;" aria-label="Gender : activate to sort column ascending" aria-sort="descending" rowspan="1" colspan="1">Gender</th>
+                    					             	<th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 50px;" aria-label="Role: activate to sort column ascending" rowspan="1" colspan="1">Role</th>
+                                            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 81px;" aria-label="Mobile: activate to sort column ascending" rowspan="1" colspan="1">Mobile</th>
+                    					            	<th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 119px;" aria-label="Joining Date: activate to sort column ascending" rowspan="1" colspan="1">Joining Date</th>
+                                            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 35px;" aria-label="Status: activate to sort column ascending" rowspan="1" colspan="1">Status</th>
+                    				            		<th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 30px;" aria-label="Action: activate to sort column ascending" rowspan="1" colspan="1">Action</th>
+                    				          	</tr>
+                                      </thead>
                                     <tbody>
                                     <?php
-                                    foreach ($notices as $notice){
+                                    foreach ($employee as $empee){
                                     ?>
                                     <tr>
-                                        <td><?=$notice['subject']?></td>
-                                        <td><?=$notice['notice_date']?></td>
-                                        <td><?=$notice['notice_time']?></td>
-                                        <td><?=$notice['description']?></td>
+                                        <td><?=$empee['first_name']?></td>
+                                        <td><?=$empee['last_name']?></td>
+                                        <td><?=$empee['user_name']?></td>
+                                        <td><?=$empee['email']?></td>
+                                        <td><?=$empee['gender']?></td>
+                                        <td><?=$empee['role']?></td>
+                                        <td><?=$empee['mobile_no']?></td>
+                                        <td><?=$empee['join_date']?></td>
+
                                         <td>
                                             <?php
-                                            if($notice['status']==1){
-                                                echo "Due";
+                                            if($empee['status']==1){
+                                                echo "pending";
                                             }else{
-                                                echo "Seen";
+                                                echo "verified";
                                             }
                                             ?>
                                         </td>
-                                        <td>Show/Edit/Delete</td>
+                                        <td>
+                                          <form action="../../src/store/create/empDelete.php" method="post">
+                                              <input type="hidden" name="delete_id" value="<?=$empee['id']?>">
+                                              <!--<a title="delete_btn" class="btn btn-danger" onclick="return confirm('Are you sure to delete this data?')" href="../../src/store/dept/deptDelete.php"><i class="fa fa-trash-o"></i></a>-->
+                                              <button type = "submit" class="btn btn-sm btn-info waves-effect waves-light" onclick="return confirm('Are you sure to delete this data?')"><i class="fa fa-trash-o"></i></button>
+                                          </form>
+                                        </td>
                                     </tr>
                                     <?php
                                    }

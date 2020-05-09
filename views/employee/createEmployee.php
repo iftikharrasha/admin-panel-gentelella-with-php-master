@@ -1,9 +1,29 @@
+<?php
+
+session_start();
+
+if(!isset($_SESSION['admin_name']) && !isset($_SESSION['password'])) {
+    header("Location:../../index.php");
+}
+
+include '../../src/common/DBConnection.php';
+
+$conn=new DBConnection();
+
+$departments=$conn->getAll("SELECT * FROM `departments`");
+
+$designations=$conn->getAll("SELECT * FROM `employee_designations`");
+
+$roles=$conn->getAll("SELECT * FROM `user_role`");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!--bannerremover style of 000w-->
     <style>img[alt="www.000webhost.com"]{display:none;}</style>
-	
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -30,7 +50,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="../admin/dashboard.html" class="site_title"><i class="fa fa-ils"></i> <span>Sunny Group</span></a>
+                    <a href="../admin/dashboard.php" class="site_title"><i class="fa fa-ils"></i> <span>Sunny Group</span></a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -57,23 +77,23 @@
                             <li>
                                 <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="../admin/dashboard.html">Dashboard</a></li>
+                                    <li><a href="../admin/dashboard.php">Dashboard</a></li>
                                 </ul>
                             </li>
 
         					<li>
                                 <a><i class="fa fa-industry"></i>Industry<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="../industry/departments.html">Departments</a></li>
-                                    <li><a href="../industry/designations.html">Designations</a></li>
+                                    <li><a href="../industry/departments.php">Departments</a></li>
+                                    <li><a href="../industry/designations.php">Designations</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a><i class="fa fa-users"></i>Employees<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="../employee/createEmployee.html">Create Employee</a></li>
-                                    <li><a href="../employee/employeeHistory.html">Employee History</a></li>
+                                    <li><a href="../employee/createEmployee.php">Create Employee</a></li>
+                                    <li><a href="../employee/employeeHistory.php">Employee History</a></li>
                                 </ul>
                             </li>
 
@@ -161,7 +181,7 @@
                     <a data-toggle="tooltip" data-placement="top" title="Dark Mode">
                         <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="../../index.html">
+                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="../../src/store/Logout.php">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -186,7 +206,7 @@
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
                                 <li><a href="javascript:;">Visit Profile</a></li>
         				            		<li><a href="javascript:;">Change Password</a></li>
-                                <li><a href="../../index.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                <li><a href="../../src/store/Logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                             </ul>
                         </li>
 
@@ -417,19 +437,27 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
+                      <h5>
+                            <?php
+                            if(!empty($_GET['message'])) {
+                                if($_GET['message']=="success") {
+                                    echo "<div class=\"alert alert-success fade in alert-dismissable\">
+                                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\" title=\"close\">×</a>
+                                    Employee Successfully Created.
+                                    </div>";
+                                } else if($_GET['message']=="failed") {
+                                    echo "<div class=\"alert alert-danger fade in alert-dismissable\">
+                                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\" title=\"close\">×</a>
+                                    Employee Adding Unfortunately Failed, Please Try Again Later
+                                    </div>";
+                                }
+                            }
+                            ?>
+                        </h5>
                         <h3>Create Employee</h3>
                     </div>
 
-                    <div class="title_right">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for...">
-                                <span class="input-group-btn">
-                              <button class="btn btn-default" type="button">Go!</button>
-                          </span>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="clearfix"></div>
 
@@ -457,147 +485,150 @@
                             </div>
                             <div class="x_content">
 
-                                <form class="form-horizontal form-label-left" novalidate>
-                                    </p>
-                                    <span class="section">Employee Info</span>
+                              <form class="form-horizontal form-label-left" action="../../src/store/create/user.php" enctype="multipart/form-data" method="post" novalidate="novalidate">
 
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firstName">First Name <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="firstName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="firstName" placeholder="Jon" required="required" type="text">
-                                        </div>
-                                    </div>
+                                  <!--<p>For alternative validation library <code>parsleyJS</code> check out in the <a href="form.html">form page</a>
+                                  </p>-->
+                                  <span class="section">Employee Info</span>
 
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastName">Last Name <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="lastName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="lastName" placeholder="Doe" required="required" type="text">
-                                        </div>
-                                    </div>
-
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="userName">Username <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="userName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="userName" placeholder="username" required="required" type="text">
-                                        </div>
-                                    </div>
-
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="empId">Employee ID<span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="empId" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="empId" placeholder="123456" required="required" type="text">
-                                        </div>
-                                    </div>
-
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="department">Department <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="department" name="department">
-                                                <?php foreach ($departments as $department) { ?>
-                                                <option value="<?=$department['id']?>"><?=$department['name']?></option>
-                                                <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="designation">Designation <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="designation" name="designation">
-                                                <?php foreach ($designations as $designation) { ?>
-                                                    <option value="<?=$designation['id']?>"><?=$designation['title']?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="role">Role <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="role" name="role">
-                                                <?php foreach ($roles as $role) { ?>
-                                                    <option value="<?=$role['id']?>"><?=$role['title']?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="item form-group">
-                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="designation">Gender <span class="required">*</span>
+                                  <div class="item form-group">
+                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firstName">First Name <span class="required"></span>
                                       </label>
-                                         <p>
-                                           Male:
-                                           <input type="radio" class="flat" name="gender" id="genderM" value="M" checked="" required /> Female:
-                                           <input type="radio" class="flat" name="gender" id="genderF" value="F" />
-                                         </p>
-                                    </div>
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <input id="firstName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="firstName" placeholder="Imtiaz" required="required" type="text">
+                                      </div>
+                                  </div>
 
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="proPic">Profile Pic <span class="required">*</span>
+                                  <div class="item form-group">
+                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastName">Last Name <span class="required"></span>
+                                      </label>
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <input id="lastName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="lastName" placeholder="Misha" required="required" type="text">
+                                      </div>
+                                  </div>
+
+                                  <div class="item form-group">
+                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="userName">Username <span class="required">*</span>
+                                      </label>
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <input id="userName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="userName" placeholder="imtiazmisha" required="required" type="text">
+                                      </div>
+                                  </div>
+
+                                  <div class="item form-group">
+                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employeeId">Employee ID<span class="required"></span>
+                                      </label>
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <input id="empId" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="employeeId" placeholder="123456" required="required" type="text">
+                                      </div>
+                                  </div>
+
+                                  <div class="item form-group">
+                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="department">Department <span class="required">*</span>
+                                      </label>
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <select id="department" name="departmentId">
+                                              <?php foreach ($departments as $department) { ?>
+                                              <option value="<?=$department['id']?>"><?=$department['name']?></option>
+                                              <?php
+                                              }
+                                              ?>
+                                          </select>
+                                      </div>
+                                  </div>
+
+
+                                  <div class="item form-group">
+                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="designation">Designation <span class="required">*</span>
+                                      </label>
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <select id="designation" name="designationId">
+                                              <?php foreach ($designations as $designation) { ?>
+                                                  <option value="<?=$designation['id']?>"><?=$designation['title']?></option>
+                                                  <?php
+                                              }
+                                              ?>
+                                          </select>
+                                      </div>
+                                  </div>
+
+                                  <div class="item form-group">
+                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="role">Role <span class="required">*</span>
+                                      </label>
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <select id="role" name="userRole">
+                                              <?php foreach ($roles as $role) { ?>
+                                                  <option value="<?=$role['role']?>"><?=$role['role']?></option>
+                                                  <!--<option value="<?=$role['ID']?>"><?=$role['role']?></option>-->
+                                                  <?php
+                                              }
+                                              ?>
+                                          </select>
+                                      </div>
+                                  </div>
+
+                                  <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="designation">Gender <span class="required">*</span>
+                                    </label>
+                                       <p>
+                                         Male:
+                                         <input type="radio" class="flat" name="gender" id="genderM" value="Male" checked="" required /> Female:
+                                         <input type="radio" class="flat" name="gender" id="genderF" value="Female" />
+                                       </p>
+                                  </div>
+
+                                  <div class="item form-group">
+                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="proPic">Profile Pic <span class="required"></span>
+                                      </label>
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <input id="proPic" type="file" name="proPic" data-validate-length-range="5,20" class="form-control col-md-7 col-xs-12">
+                                      </div>
+                                  </div>
+
+                                  <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="joinDate">Date of Joining <span class="required"></span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="proPic" type="file" name="proPic" data-validate-length-range="5,20" class="form-control col-md-7 col-xs-12">
+                                            <input id="joinDate" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="joinDate" placeholder="Join Date" required="required" type="date">
                                         </div>
-                                    </div>
+                                  </div>
 
-                                    <div class="item form-group">
-                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="birthDate">Date of Birth <span class="required">*</span>
-                                          </label>
-                                          <div class="col-md-6 col-sm-6 col-xs-12">
-                                              <input id="birthDate" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="birthDate" placeholder="Notice Date" required="required" type="date">
-                                          </div>
-                                    </div>
+                                  <div class="item form-group">
+                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required"></span>
+                                      </label>
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <input type="email" id="email2" name="email" data-validate-linked="email" placeholder="example@mail.com" required="required" class="form-control col-md-7 col-xs-12">
+                                      </div>
+                                  </div>
+                                  <div class="item form-group">
+                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Number <span class="required">*</span>
+                                      </label>
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <input type="number" id="number" name="number" placeholder="01234567890" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                                      </div>
+                                  </div>
 
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="email" id="email2" name="confirm_email" data-validate-linked="email" placeholder="example@gmail.com" required="required" class="form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Number <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" id="number" name="number" placeholder="01980058647" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
+                                  <div class="item form-group">
+                                      <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Password<span class="required">*</span></label>
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
+                                      </div>
+                                  </div>
+                                  <div class="item form-group">
+                                      <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Confirm Password</label>
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
+                                      </div>
+                                  </div>
 
-                                    <div class="item form-group">
-                                        <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Confirm Password</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
-                                        </div>
-                                    </div>
-
-                                    <div class="ln_solid"></div>
-                                    <div class="form-group">
-                                        <div class="col-md-6 col-md-offset-3">
-                                            <button type="reset" class="btn btn-primary">Reset</button>
-                                            <button id="send" type="submit" class="btn btn-success">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                  <div class="ln_solid"></div>
+                                  <div class="form-group">
+                                      <div class="col-md-6 col-md-offset-3">
+                                          <button type="reset" class="btn btn-primary">Reset</button>
+                                          <button id="send" type="submit" class="btn btn-success">Submit</button>
+                                      </div>
+                                  </div>
+                              </form>
                             </div>
                         </div>
                     </div>
@@ -626,7 +657,7 @@
 <!-- NProgress -->
 <script src="../../resource/js/nprogress.js"></script>
 <!-- validator -->
-<script src="../../resource/js/validator.js"></script>
+<!--<script src="../../resource/js/validator.js"></script>-->
 <!--Custom Theme Scripts -->
 <script src="../../resource/js/custom.min.js"></script>
 

@@ -1,5 +1,7 @@
 # admin-panel-gentelella-with-php-master
 
-Total html overview of the Admin Panel Design, simplified (v1.0)
+Total html overview of the Admin Panel Design, simplified 
+html files converted to php, login with db conection added
+department and designation added
 
-Open index.html
+modified v1.3
