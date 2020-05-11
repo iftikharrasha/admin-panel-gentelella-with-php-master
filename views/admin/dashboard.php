@@ -1204,5 +1204,26 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
 <script src="../../resource/js/daterangepicker.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="../../resource/js/custom.min.js"></script>
+<!--darkmode-->
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.5/lib/darkmode-js.min.js"></script>
+<script>
+  const options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: 'red',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: false, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+
+  const darkmode = new Darkmode(options);
+
+  darkmode.showWidget();
+</script>
 </body>
 </html>
