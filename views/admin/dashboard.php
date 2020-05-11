@@ -64,7 +64,7 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
     <div class="main_container">
 
         <!-- side and top bar include -->
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 left_col logo">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
                     <a href="../admin/dashboard.php" class="site_title"><i class="fa fa-ils"></i> <span>Sunny Group</span></a>
@@ -195,7 +195,7 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                     <a data-toggle="tooltip" data-placement="top" title="FullScreen">
                         <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Dark Mode">
+                    <a data-toggle="tooltip" data-placement="top" class="dark-toggle-switch" title="Dark Mode">
                         <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                     </a>
                     <a data-toggle="tooltip" data-placement="top" title="Logout" href="../../src/store/Logout.php">
@@ -217,7 +217,7 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="../../resource/images/misha.jpg" alt="">Imtiaz Misha
+                                <img class="logo "src="../../resource/images/misha.jpg" alt="">Imtiaz Misha
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -454,32 +454,32 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
             <div class="row tile_count">
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Total Notices</span>
-                    <div><a href="../../views/admin/noticeHistory.php" class="count red"><?=$totalNotices['TOTAL']?></a></div>
+                    <div style="background-color:#00ffbf"><a href="../../views/admin/noticeHistory.php" class="count red"><?=$totalNotices['TOTAL']?></a></div>
                     <span class="count_bottom"><i class="green">4% </i> From last Week</span>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-clock-o"></i> Total Events in live</span>
-                    <div class="count aero"><?=$events['TOTAL']?></div>
+                    <div style="background-color:steelblue" class="count aero" ><?=$events['TOTAL']?></div>
                     <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Employees</span>
-                    <div><a href="../../views/employee/employeeHistory.php" class="count green"><?=$employees['TOTAL']?></a></div>
+                    <div style="background-color:#ff5050"><a href="../../views/employee/employeeHistory.php" class="count green"><?=$employees['TOTAL']?></a></div>
                     <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Leave Application</span>
-                    <div class="count blue">4</div>
+                    <div class="count blue" style="background-color:#8585ad">4</div>
                     <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Absent</span>
-                    <div class="count">3</div>
+                    <div class="count" style="background-color:#007a99">3</div>
                     <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Loan Application</span>
-                    <div class="count purple">7</div>
+                    <div class="count purple" style="background-color:#c2c2d6">7</div>
                     <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
                 </div>
             </div>
@@ -735,7 +735,7 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
 
             </div>
 
-			<div class="row">
+			<!--<div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="dashboard_graph">
 
@@ -803,7 +803,7 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                     </div>
                 </div>
 
-            </div>
+            </div>-->
 
 
             <div class="row">
@@ -1204,26 +1204,36 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
 <script src="../../resource/js/daterangepicker.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="../../resource/js/custom.min.js"></script>
+
 <!--darkmode-->
-<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.5/lib/darkmode-js.min.js"></script>
+<script src="../../resource/js/darkmode-js.min.js"></script>
 <script>
   const options = {
-  bottom: '64px', // default: '32px'
-  right: 'unset', // default: '32px'
-  left: '32px', // default: 'unset'
-  time: '0.5s', // default: '0.3s'
+  bottom: '32px', // default: '32px'
+  right: '32px', // default: '32px'
+  left: 'unset', // default: 'unset'
+  time: '.5s', // default: '0.3s'
   mixColor: '#fff', // default: '#fff'
-  backgroundColor: 'red',  // default: '#fff'
-  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: 'orange',  // default: '#100f2c'
   buttonColorLight: '#fff', // default: '#fff'
-  saveInCookies: false, // default: true,
-  label: '🌓', // default: ''
+  saveInCookies: true, // default: true,
+  label: '', // default: ''
   autoMatchOsTheme: true // default: true
+  
 }
-
   const darkmode = new Darkmode(options);
-
   darkmode.showWidget();
+  
+//For showing widget
+  /*darkmode.showWidget();*/
+  
+//If you don't want to show the widget and enable/disable Darkmode programatically you can use the method toggle().
+  /*const darkmode =  new Darkmode();
+  darkmode.toggle();*/
+  
+//You can also check if the darkmode is activated with the method isActivated(). 
+  /*console.log(darkmode.isActivated()) // will return true*/
 </script>
 </body>
 </html>

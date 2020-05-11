@@ -144,8 +144,10 @@ html , body{
     padding: 0 0 4px 0
 }
 .left_col {
-    background: #2A3F54
+    background: #2A3F54;
+	
 }
+
 .nav-sm .container.body .col-md-3.left_col {
     min-height: 100%;
     width: 70px;
@@ -187,7 +189,7 @@ html , body{
 .nav-sm .main_container .top_nav {
     display: block;
     margin-left: 70px;
-    z-index: 2
+    z-index: 510;
 }
 .nav-sm .nav.side-menu li a {
     text-align: center !important;
@@ -1686,11 +1688,11 @@ span.right {
 }
 .tile_count {
     margin-bottom: 20px;
-    margin-top: 20px
+    margin-top: 80px;
 }
 .tile_count .tile_stats_count {
     border-bottom: 1px solid #D9DEE4;
-    padding: 0 10px 0 20px;
+    padding: 0 30px 0 40px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -4185,7 +4187,13 @@ ul.notifications {
    .dataTables_length { float:none; }
 }
 
+.darkmode-layer, .darkmode-toggle {
+  z-index: 500;
+}
 
+.darkmode--activated .logo {
+  mix-blend-mode: difference;
+}
 
 
 /* CSS3 Checkbox */
@@ -4242,3 +4250,5 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 .dataTables_wrapper > .row{
   overflow:auto !important; /*prevent datatables overflowing its container*/
 }
+
+
