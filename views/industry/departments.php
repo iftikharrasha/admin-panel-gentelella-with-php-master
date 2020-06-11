@@ -10,8 +10,7 @@ include '../../src/common/DBConnection.php';
 
 $conn=new DBConnection();
 
-$employee=$conn->getAll("SELECT * FROM `employees`");
-//$notices=$conn->getAll("SELECT * FROM `notices`");
+$departments=$conn->getAll("SELECT * FROM `departments`");
 
 ?>
 
@@ -60,7 +59,7 @@ $employee=$conn->getAll("SELECT * FROM `employees`");
 <div class="container body">
     <div class="main_container">
 
-         <!-- side and top bar include -->
+       <!-- side and top bar include -->
         <?php include '../partPage/sideAndTopBarMenu.php' ?>
         <!-- /side and top bar include -->
 
@@ -86,37 +85,77 @@ $employee=$conn->getAll("SELECT * FROM `employees`");
 
                 <div class="page-title">
                     <div class="title_left">
-                      <h5>
+                        <h3>Departments <small>list</small></h3>
+                        <h5>
                             <?php
                             if(!empty($_GET['message'])) {
-                                if($_GET['message']=="deletesuccess") {
+                                if($_GET['message']=="success") {
                                     echo "<div class=\"alert alert-success fade in alert-dismissable\">
                                     <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\" title=\"close\">×</a>
-                                    Employee Data Successfully Deleted.
+                                    Department Successfully Added.
+                                    </div>";
+                                } else if($_GET['message']=="failed") {
+                                    echo "<div class=\"alert alert-danger fade in alert-dismissable\">
+                                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\" title=\"close\">×</a>
+                                    Department Adding Unfortunately Failed, Please Try Again Later
+                                    </div>";
+                                } else if($_GET['message']=="deletesuccess") {
+                                    echo "<div class=\"alert alert-success fade in alert-dismissable\">
+                                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\" title=\"close\">×</a>
+                                    Department Successfully Deleted.
                                     </div>";
                                 } else if($_GET['message']=="deletefailed") {
                                     echo "<div class=\"alert alert-danger fade in alert-dismissable\">
                                     <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\" title=\"close\">×</a>
-                                    Employee deletion Unfortunately Failed, Please Try Again Later
+                                    Department deletion Unfortunately Failed, Please Try Again Later
                                     </div>";
                                 }
                             }
                             ?>
                         </h5>
-                        <h3>Employee<small> History</small></h3>
                     </div>
 
 
                 </div>
 
                 <div class="clearfix"></div>
+				
 
                 <div class="row">
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="col-md-5 col-sm-3 col-xs-12">
+                    <div class="card card-outline-info">
+                          <div class="card-header">
+                              <h4 class="m-b-0 text-white">Add Department</h4>
+                          </div>
+
+                          <div class="card-body">
+                                  <form action="../../src/store/dept/deptStore.php" enctype="multipart/form-data" method="post" novalidate="novalidate">
+                                      <div class="form-body">
+                                          <div class="row ">
+                                              <div class="col-md-12">
+                                                  <div class="form-group">
+                                                      <label class="control-label">Department Name</label>
+                                                      <input name="department" class="form-control" id="firstName" required="" type="text" placeholder="" minlength="3" value="">
+                                                  </div>
+                                              </div>
+                                              <!--/span-->
+                                          </div>
+                                          <!--/row-->
+                                      </div>
+                                      <div class="form-actions">
+                                          <button class="btn btn-info" type="submit"> <i class="fa fa-check"></i> Save</button>
+                                          <button class="btn btn-info" type="button">Cancel</button>
+                                      </div>
+                                  </form>
+                          </div>
+                      </div>
+                  </div>
+
+                    <div class="col-md-7 col-sm-9 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Manage <small>employee</small></h2>
+                                <h2>Manage <small>Notice</small></h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -140,58 +179,45 @@ $employee=$conn->getAll("SELECT * FROM `employees`");
 
                                 </p>
 
-                                <table width="100%" class="display nowrap table table-hover table-striped table-bordered dataTable" id="datatable-buttons" role="grid" aria-describedby="attendance123_info" style="width: 100%;" cellspacing="0">
+                                <div class="card card-outline-info">
 
-                                      <thead>
-                                        <tr role="row">
-                    						            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 100px;" aria-label="Employee Name: activate to sort column ascending" rowspan="1" colspan="1">First Name</th>
-                                            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 100px;" aria-label="Employee Name: activate to sort column ascending" rowspan="1" colspan="1">Last Name</th>
-                                            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 100px;" aria-label="Employee Name: activate to sort column ascending" rowspan="1" colspan="1">Username</th>
-                                            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 135px;" aria-label="Email: activate to sort column ascending" rowspan="1" colspan="1">Email</th>
-                    					             	<th tabindex="0" class="sorting_desc" aria-controls="attendance123" style="width: 30px;" aria-label="Gender : activate to sort column ascending" aria-sort="descending" rowspan="1" colspan="1">Gender</th>
-                    					             	<th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 50px;" aria-label="Role: activate to sort column ascending" rowspan="1" colspan="1">Role</th>
-                                            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 81px;" aria-label="Mobile: activate to sort column ascending" rowspan="1" colspan="1">Mobile</th>
-                    					            	<th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 119px;" aria-label="Joining Date: activate to sort column ascending" rowspan="1" colspan="1">Joining Date</th>
-                                            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 35px;" aria-label="Status: activate to sort column ascending" rowspan="1" colspan="1">Status</th>
-                    				            		<th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 30px;" aria-label="Action: activate to sort column ascending" rowspan="1" colspan="1">Action</th>
-                    				          	</tr>
-                                      </thead>
-                                    <tbody>
-                                    <?php
-                                    foreach ($employee as $empee){
-                                    ?>
-                                    <tr>
-                                        <td><?=$empee['first_name']?></td>
-                                        <td><?=$empee['last_name']?></td>
-                                        <td><?=$empee['user_name']?></td>
-                                        <td><?=$empee['email']?></td>
-                                        <td><?=$empee['gender']?></td>
-                                        <td><?=$empee['role']?></td>
-                                        <td><?=$empee['mobile_no']?></td>
-                                        <td><?=$empee['join_date']?></td>
+                               <div class="card-body">
+                                <div class="table-responsive ">
+                                    <table width="100%" class="display table table-hover table-striped table-bordered" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Department Name</th>
+                                                <th>Edit</th>
+												                        <th>Delete</th>
+                                            </tr>
+                                        </thead>
 
-                                        <td>
+                                        <tbody>
                                             <?php
-                                            if($empee['status']==1){
-                                                echo "pending";
-                                            }else{
-                                                echo "verified";
-                                            }
+                                               foreach ($departments as $department){
                                             ?>
-                                        </td>
-                                        <td>
-                                          <form action="../../src/store/create/empDelete.php" method="post">
-                                              <input type="hidden" name="delete_id" value="<?=$empee['id']?>">
-                                              <!--<a title="delete_btn" class="btn btn-danger" onclick="return confirm('Are you sure to delete this data?')" href="../../src/store/dept/deptDelete.php"><i class="fa fa-trash-o"></i></a>-->
-                                              <button type = "submit" class="btn btn-sm btn-info waves-effect waves-light" onclick="return confirm('Are you sure to delete this data?')"><i class="fa fa-trash-o"></i></button>
-                                          </form>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                   }
-                                    ?>
-                                    </tbody>
-                                </table>
+                                            <tr>
+                                                <td><?=$department['name']?></td>
+                                                <td class="jsgrid-align-center">
+                                                    <a title="Edit" class="btn btn-sm btn-info waves-effect waves-light" href="../../src/store/dept/deptEdit.php"><i class="fa fa-pencil-square-o"></i></a>
+
+                        												</td>
+                        												 <td class="jsgrid-align-center">
+
+                        													<form action="../../src/store/dept/deptDelete.php" method="post">
+                                                      <input type="hidden" name="delete_id" value="<?=$department['id']?>">
+                        													    <button type = "submit" class="btn btn-sm btn-info waves-effect waves-light" onclick="return confirm('Are you sure to delete this data?')"><i class="fa fa-trash-o"></i></button>
+                                                  </form>
+                        												</td>
+                                            </tr>
+                                            <?php
+                                                 }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                             </div>
                         </div>
                     </div>
@@ -203,3 +229,4 @@ $employee=$conn->getAll("SELECT * FROM `employees`");
          <!-- footer content include -->
         <?php include '../partPage/footer.php' ?>
         <!-- /footer content include -->
+    

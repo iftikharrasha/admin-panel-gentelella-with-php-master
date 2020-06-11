@@ -28,23 +28,30 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <!--bannerremover style of 000w-->
     <style>img[alt="www.000webhost.com"]{display:none;}</style>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Human Resource Management Sysytem</title>
 
+	<!--fonts-->
+	<link rel="stylesheet" href="https://use.typekit.net/nfp7kim.css">
+	<!--<link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&display=swap" rel="stylesheet">-->
+	<!--<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">-->
+    <!-- for gooey --->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"/>
     <!-- Bootstrap -->
     <link href="../../resource/css/bootstrap.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../../resource/css/font-awesome.css" rel="stylesheet">
+	<!--for sticky gooey menu-->
     <!-- NProgress -->
     <link href="../../resource/css/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
@@ -56,7 +63,9 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
     <!-- bootstrap-daterangepicker -->
     <link href="../../resource/css/daterangepicker.css" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="../../resource/css/custom.css" rel="stylesheet">
+    <link type="text/css" href="../../resource/css/custom.css" rel="stylesheet">
+
+
 </head>
 
 <body class="nav-md">
@@ -64,423 +73,58 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
     <div class="main_container">
 
         <!-- side and top bar include -->
-        <div class="col-md-3 left_col logo">
-            <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                    <a href="../admin/dashboard.php" class="site_title"><i class="fa fa-ils"></i> <span>Sunny Group</span></a>
-                </div>
-
-                <div class="clearfix"></div>
-
-                <!-- menu profile quick info -->
-                <div class="profile clearfix">
-                    <div class="profile_pic">
-                        <img src="../../resource/images/misha.jpg" alt="..." class="img-circle profile_img">
-                    </div>
-                    <div class="profile_info">
-                        <span>Hello,</span>
-                        <h2>Imtiaz Misha</h2>
-                    </div>
-                </div>
-                <!-- /menu profile quick info -->
-
-                <br />
-
-                <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        <h3>Menu</h3>
-                        <ul class="nav side-menu">
-                            <li>
-                                <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="../admin/dashboard.php">Dashboard</a></li>
-                                </ul>
-                            </li>
-
-        					<li>
-                                <a><i class="fa fa-industry"></i>Industry<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="../industry/departments.php">Departments</a></li>
-                                    <li><a href="../industry/designations.php">Designations</a></li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a><i class="fa fa-users"></i>Employees<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="../employee/createEmployee.php">Create Employee</a></li>
-                                    <li><a href="../employee/employeeHistory.php">Employee History</a></li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a><i class="fa fa-comments-o"></i>Notice Board <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="../admin/sendNotice.html">Create Notice</a></li>
-                                      <li><a href="../noticeBoard/noticeBoard.html">Notice History</a></li>
-                                </ul>
-                            </li>
-
-        					<li>
-                                <a><i class="fa fa-calendar-check-o"></i>Attendance<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-        					                	<li><a href="../attendance/attendance.html">Take Attendance</a></li>
-                                    <li><a href="../attendance/attList.html">Attendance List</a></li>
-                                    <li><a href="../attendance/attReport.html">Report</a></li>
-                                </ul>
-                            </li>
-
-        					<li>
-                                <a><i class="fa fa-external-link"></i>Manage Leaves<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="../leave/leaveApplications.html">Applications</a></li>
-                      							<li><a href="../leave/holydays.html">Holyday</a></li>
-                      							<li><a href="../leave/leaveType.html">Leave Type</a></li>
-                      							<li><a href="../leave/leaveReport.html">Report</a></li>
-
-                                </ul>
-                            </li>
-
-        					<li>
-                                <a><i class="fa fa-credit-card"></i>Payroll<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="../payroll/payrollList.html">Payroll List</a></li>
-                      							<li><a href="../payroll/generatePayslip.html">Generate Payslip</a></li>
-                                </ul>
-                            </li>
-
-        					<li>
-                                <a><i class="fa fa-balance-scale"></i>Loan<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="../loan/loanApplications.html">Applications</a></li>
-                      							<li><a href="../loan/grandLoan.html">Grand Loan</a></li>
-                      							<li><a href="../loan/installments.html">Installment</a></li>
-
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="menu_section">
-                        <h3>Live On</h3>
-                        <ul class="nav side-menu">
-        				    <li>
-                                <a><i class="fa fa-envelope-o"></i>Conference<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                    					     	<li><a href="../inbox/inbox.html">Inbox</a></li>
-                    					   		<li><a href="https://meet.google.com/">Meet</a></li>
-                                </ul>
-                            </li>
-
-
-        				         	<li>
-                                <a><i class="fa fa-briefcase"></i>Job Vacancies<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-        					     	<li><a href="../admin/jobApplications.html">Applications</a></li>
-                                    <li><a href="../admin/addVacancies.html">Add Vacancies</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-                <!-- /sidebar menu -->
-
-                <!-- /menu footer buttons -->
-                <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" data-placement="top" title="Settings" href="../../src/store/sitesettings.php">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                    </a>
-
-                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" class="dark-toggle-switch" title="Dark Mode">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="../../src/store/Logout.php">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                    </a>
-                </div>
-                <!-- /menu footer buttons -->
-            </div>
-        </div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <nav>
-                    <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                    </div>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img class="logo "src="../../resource/images/misha.jpg" alt="">Imtiaz Misha
-                                <span class=" fa fa-angle-down"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;">Visit Profile</a></li>
-        				            		<li><a href="javascript:;">Change Password</a></li>
-                                <li><a href="../../src/store/Logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                            </ul>
-                        </li>
-
-                        <li role="presentation" class="dropdown">
-                           <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                               <i class="fa fa-envelope"></i>
-                               <span class="badge bg-green"></span>
-                           </a>
-                           <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-
-
-                               <li>
-                                   <a id="compose">
-                                       <span class="image"><img src="../../resource/images/img6.png" alt="Profile Image" /></span>
-                                       <span>
-                                         <span>Sunny Bro</span>
-                                         <span class="time">04:23</span>
-                                       </span>
-                                       <span class="message">Check this</span>
-                                   </a>
-                               </li>
-                               <li>
-                                   <a id="compose">
-                                       <span class="image"><img src="../../resource/images/img4.png" alt="Profile Image" /></span>
-                                       <span>
-                                         <span>Ashik Bro</span>
-                                         <span class="time">01:46</span>
-                                       </span>
-                                       <span class="message">Add me</span>
-                                   </a>
-                               </li>
-                               <li>
-                                   <a id="compose">
-                                       <span class="image"><img src="../../resource/images/img5.png" alt="Profile Image" /></span>
-                                       <span>
-                                         <span>Chanchal Chowdhury</span>
-                                         <span class="time">10:28</span>
-                                       </span>
-                                       <span class="message">Vhayaa</span>
-                                   </a>
-                               </li>
-
-                               <li>
-                                   <div class="text-center">
-                                       <a href="../inbox/inbox.html">
-                                        <button class="btn btn-sm btn-success btn-block" type="button">Open Inbox</button>
-                                       </a>
-                                   </div>
-                               </li>
-
-                           </ul>
-                       </li>
-
-        				<li role="presentation" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
-                                <span class="badge bg-green"></span>
-                            </a>
-                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-
-
-                                <li>
-                                    <a href="../../src/store/view.php">
-                                        <span class="image"><img src="../../resource/images/img1.png" alt="Profile Image" /></span>
-                                        <span>
-                                          <span>Admin</span>
-                                          <span class="time">04-12-20</span>
-                                        </span>
-                                        <span class="message">Kindly everyone talk to your head office to get registered here </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../../src/store/view.php">
-                                        <span class="image"><img src="../../resource/images/img2.png" alt="Profile Image" /></span>
-                                        <span>
-                                          <span>Super Admin</span>
-                                          <span class="time">04-02-20</span>
-                                        </span>
-                                        <span class="message">Feaures will be available in 6 months </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../../src/store/view.php">
-                                        <span class="image"><img src="../../resource/images/img.png" alt="Profile Image" /></span>
-                                        <span>
-                                          <span>IT Analyst</span>
-                                          <span class="time">03-28-20</span>
-                                        </span>
-                                        <span class="message">A new feature has been added </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../../src/store/view.php">
-                                        <span class="image"><img src="../../resource/images/img3.png" alt="Profile Image" /></span>
-                                        <span>
-                                          <span>Moderator</span>
-                                          <span class="time">03-22-20</span>
-                                        </span>
-                                        <span class="message">This is a test Notice</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <div class="text-center">
-                                        <a href="../noticeBoard/noticeBoard.html">
-                                              <button class="btn btn-sm btn-danger btn-block" type="button">See All Notices</button>
-                                        </a>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        <!-- /top navigation -->
-
-        <!-- compose -->
-         <div class="compose col-md-6 col-xs-12">
-           <div class="compose-header">
-             User Name
-             <button type="button" class="close compose-close">
-               <span>×</span>
-             </button>
-           </div>
-
-           <div class="compose-body">
-             <div id="alerts"></div>
-
-             <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor">
-               <div class="btn-group">
-                 <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
-                 <ul class="dropdown-menu">
-                 </ul>
-               </div>
-
-               <div class="btn-group">
-                 <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-                 <ul class="dropdown-menu">
-                   <li>
-                     <a data-edit="fontSize 5">
-                       <p style="font-size:17px">Huge</p>
-                     </a>
-                   </li>
-                   <li>
-                     <a data-edit="fontSize 3">
-                       <p style="font-size:14px">Normal</p>
-                     </a>
-                   </li>
-                   <li>
-                     <a data-edit="fontSize 1">
-                       <p style="font-size:11px">Small</p>
-                     </a>
-                   </li>
-                 </ul>
-               </div>
-
-               <div class="btn-group">
-                 <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-                 <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
-                 <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
-                 <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
-               </div>
-
-               <div class="btn-group">
-                 <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
-                 <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
-                 <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
-                 <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-               </div>
-
-               <div class="btn-group">
-                 <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
-                 <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
-                 <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
-                 <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
-               </div>
-
-               <div class="btn-group">
-                 <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
-                 <div class="dropdown-menu input-append">
-                   <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
-                   <button class="btn" type="button">Add</button>
-                 </div>
-                 <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-               </div>
-
-               <div class="btn-group">
-                 <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
-                 <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
-               </div>
-
-               <div class="btn-group">
-                 <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
-                 <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
-               </div>
-             </div>
-
-             <div id="editor" class="editor-wrapper"></div>
-           </div>
-
-           <div class="compose-footer">
-             <button id="send" class="btn btn-sm btn-success" type="button">Send</button>
-           </div>
-         </div>
-         <!-- /compose -->
-
-
-        <style>
-           .message {
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    display: -webkit-box;
-                    line-height: 16px;
-                    max-height: 32px;
-
-                    /* The number of lines to be displayed */
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-           }
-        </style>
+        <?php include '../partPage/sideAndTopBarMenu.php' ?>
         <!-- /side and top bar include -->
 
         <!-- page content -->
         <div class="right_col" role="main">
+
+			<!--gooey-->
+				 <div class="fabs" onclick="toggleBtn()">
+  				  <div class="action">
+      					<i class="fas fa-plus" id="add"></i>
+      					<i class="fas fa-times" id="remove" style="display: none"></i>
+  				  </div>
+
+  				  <div class="btns">
+      					<a href="../../src/store/Logout.php" class="g-btn"><i class="glyphicon glyphicon-off"></i></a>
+      					<a href="../../src/store/sitesettings.php" class="g-btn"><i class="glyphicon glyphicon-cog"></i></a>
+      					<a href="" class="g-btn"><i class="glyphicon glyphicon-flash"></i></a>
+      					<a href="../../../index.php" class="g-btn"><i class="glyphicon glyphicon-send"></i></a>
+  				  </div>
+				</div>
+
             <!-- top tiles -->
             <div class="row tile_count">
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Total Notices</span>
-                    <div style="background-color:#00ffbf"><a href="../../views/admin/noticeHistory.php" class="count red"><?=$totalNotices['TOTAL']?></a></div>
-                    <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+                    <a href="../../views/noticeBoard/noticeBoard.php"><div class="count count-c1 aero info-box logo"><span1></span1><span1></span1><span1></span1><span1></span1><?=$totalNotices['TOTAL']?></div></a>
+                    <!--<span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-clock-o"></i> Total Events in live</span>
-                    <div style="background-color:steelblue" class="count aero" ><?=$events['TOTAL']?></div>
-                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+                    <span class="count_top"><i class="fa fa-clock-o"></i> Present Today</span>
+                    <div class="count count-c2 aero info-box logo"><span1></span1><span1></span1><span1></span1><span1></span1><?=$events['TOTAL']?></div>
+                    <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>-->
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Employees</span>
-                    <div style="background-color:#ff5050"><a href="../../views/employee/employeeHistory.php" class="count green"><?=$employees['TOTAL']?></a></div>
-                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                    <a href="../../views/employee/employeeHistory.php"><div class="count count-c3 aero info-box logo"><span1></span1><span1></span1><span1></span1><span1></span1><?=$employees['TOTAL']?></div></a>
+                    <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Leave Application</span>
-                    <div class="count blue" style="background-color:#8585ad">4</div>
-                    <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+                    <div class="count count-c4 aero info-box logo"><span1></span1><span1></span1><span1></span1><span1></span1>4</div>
+                    <!--<span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>-->
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> Absent</span>
-                    <div class="count" style="background-color:#007a99">3</div>
-                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                    <span class="count_top "><i class="fa fa-user"></i> Absent</span>
+                    <div class="count count-c5 aero info-box logo"><span1></span1><span1></span1><span1></span1><span1></span1>3</div>
+                    <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Loan Application</span>
-                    <div class="count purple" style="background-color:#c2c2d6">7</div>
-                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                    <div class="count count-c6 aero info-box logo"><span1></span1><span1></span1><span1></span1><span1></span1>7</div>
+                    <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
                 </div>
             </div>
             <!-- /top tiles -->
@@ -494,11 +138,11 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="x_panel tile fixed_height_320">
                         <div class="x_title">
-                            <h2>App Version</h2>
+                            <h2>Web Version</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
-                                <li class="dropdown">
+                                <!--<li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="#">Settings 1</a>
@@ -506,14 +150,14 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                                         <li><a href="#">Settings 2</a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>-->
                                 <li><a class="close-link"><i class="fa fa-close"></i></a>
                                 </li>
                             </ul>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <h4>App Usage across Dhaka</h4>
+                            <h4>Website users across BD</h4>
                             <div class="widget_summary">
                                 <div class="w_left w_25">
                                     <span>Bashundhara</span>
@@ -603,11 +247,11 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="x_panel tile fixed_height_320 overflow_hidden">
                         <div class="x_title">
-                            <h2>Companies Profits</h2>
+                            <h2 class>Companies Profits</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
-                                <li class="dropdown">
+                                 <!--<li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="#">Settings 1</a>
@@ -615,7 +259,7 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                                         <li><a href="#">Settings 2</a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>-->
                                 <li><a class="close-link"><i class="fa fa-close"></i></a>
                                 </li>
                             </ul>
@@ -684,11 +328,11 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="x_panel tile fixed_height_320">
                         <div class="x_title">
-                            <h2>Quick Settings</h2>
+                            <h2 class>Quick Settings</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
-                                <li class="dropdown">
+                                 <!--<li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="#">Settings 1</a>
@@ -696,7 +340,7 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                                         <li><a href="#">Settings 2</a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>-->
                                 <li><a class="close-link"><i class="fa fa-close"></i></a>
                                 </li>
                             </ul>
@@ -715,7 +359,7 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                                     <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
                                     <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
                                     </li>
-                                    <li><i class="fa fa-area-chart"></i><a href="#">Logout</a>
+                                    <li><i class="fa fa-area-chart"></i><a href="../../src/store/Logout.php">Logout</a>
                                     </li>
                                 </ul>
 
@@ -810,11 +454,11 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Notice Timeline<small>Sessions</small></h2>
+                            <h2 class>Notice Timeline<small>Sessions</small></h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
-                                <li class="dropdown">
+                                 <!--<li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="#">Settings 1</a>
@@ -822,7 +466,7 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                                         <li><a href="#">Settings 2</a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>-->
                                 <li><a class="close-link"><i class="fa fa-close"></i></a>
                                 </li>
                             </ul>
@@ -912,21 +556,21 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                     <div class="row">
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="x_panel">
+                            <div class="x_pane" >
                                 <div class="x_title">
-                                    <h2>Visitors location <small>geo-presentation</small></h2>
+                                    <h2 class>Visitors location <small>geo-presentation</small></h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Settings 1</a>
-                                                </li>
-                                                <li><a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
+                                         <!--<li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
                                         </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>-->
                                         <li><a class="close-link"><i class="fa fa-close"></i></a>
                                         </li>
                                     </ul>
@@ -976,19 +620,19 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>To Do List <small>Sample tasks</small></h2>
+                                    <h2 class>To Do List <small>Sample tasks</small></h2>
                                     <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Settings 1</a>
-                                                </li>
-                                                <li><a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
+                                       <!--<li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
                                         </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>-->
                                         <li><a class="close-link"><i class="fa fa-close"></i></a>
                                         </li>
                                     </ul>
@@ -1045,19 +689,19 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Weather Report <small>Today</small></h2>
+                                    <h2 class>Weather Report <small>Today</small></h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Settings 1</a>
-                                                </li>
-                                                <li><a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
+                                         <!--<li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
                                         </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>-->
                                         <li><a class="close-link"><i class="fa fa-close"></i></a>
                                         </li>
                                     </ul>
@@ -1154,86 +798,7 @@ $employees=$conn->getOne("SELECT COUNT(id) TOTAL FROM employees");
         </div>
         <!-- /page content -->
 
-        <!-- footer content include -->
-        <footer>
-            <div class="pull-right">
-                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Developed by <a href="#imtiazmisha" target="_blank" >Imtiaz Misha</a>
-            </div>
-            <div class="clearfix"></div>
-        </footer>
+          <!-- footer content include -->
+        <?php include '../partPage/footer.php' ?>
         <!-- /footer content include -->
-    </div>
-</div>
-
-<!-- jQuery -->
-<script src="../../resource/js/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="../../resource/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="../../resource/js/fastclick.js"></script>
-<!-- NProgress -->
-<script src="../../resource/js/nprogress.js"></script>
-<!-- Chart.js -->
-<script src="../../resource/js/Chart.min.js"></script>
-<!-- gauge.js -->
-<script src="../../resource/js/gauge.min.js"></script>
-<!-- bootstrap-progressbar -->
-<script src="../../resource/js/bootstrap-progressbar.min.js"></script>
-<!-- iCheck -->
-<script src="../../resource/js/icheck.min.js"></script>
-<!-- Skycons -->
-<script src="../../resource/js/skycons.js"></script>
-<!-- Flot -->
-<script src="../../resource/js/jquery.flot.js"></script>
-<script src="../../resource/js/jquery.flot.pie.js"></script>
-<script src="../../resource/js/jquery.flot.time.js"></script>
-<script src="../../resource/js/jquery.flot.stack.js"></script>
-<script src="../../resource/js/jquery.flot.resize.js"></script>
-<!-- Flot plugins -->
-<script src="../../resource/js/jquery.flot.orderBars.js"></script>
-<script src="../../resource/js/jquery.flot.spline.min.js"></script>
-<script src="../../resource/js/curvedLines.js"></script>
-<!-- DateJS -->
-<script src="../../resource/js/date.js"></script>
-<!-- JQVMap -->
-<script src="../../resource/js/jquery.vmap.min.js"></script>
-<script src="../../resource/js/jquery.vmap.world.js"></script>
-<script src="../../resource/js/jquery.vmap.sampledata.js"></script>
-<!-- bootstrap-daterangepicker -->
-<script src="../../resource/js/moment.min.js"></script>
-<script src="../../resource/js/daterangepicker.js"></script>
-<!-- Custom Theme Scripts -->
-<script src="../../resource/js/custom.min.js"></script>
-
-<!--darkmode-->
-<script src="../../resource/js/darkmode-js.min.js"></script>
-<script>
-  const options = {
-  bottom: '32px', // default: '32px'
-  right: '32px', // default: '32px'
-  left: 'unset', // default: 'unset'
-  time: '.5s', // default: '0.3s'
-  mixColor: '#fff', // default: '#fff'
-  backgroundColor: '#fff',  // default: '#fff'
-  buttonColorDark: 'orange',  // default: '#100f2c'
-  buttonColorLight: '#fff', // default: '#fff'
-  saveInCookies: true, // default: true,
-  label: '', // default: ''
-  autoMatchOsTheme: true // default: true
-  
-}
-  const darkmode = new Darkmode(options);
-  darkmode.showWidget();
-  
-//For showing widget
-  /*darkmode.showWidget();*/
-  
-//If you don't want to show the widget and enable/disable Darkmode programatically you can use the method toggle().
-  /*const darkmode =  new Darkmode();
-  darkmode.toggle();*/
-  
-//You can also check if the darkmode is activated with the method isActivated(). 
-  /*console.log(darkmode.isActivated()) // will return true*/
-</script>
-</body>
-</html>
+   
