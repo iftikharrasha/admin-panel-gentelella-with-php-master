@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+ <head>
     <!--bannerremover style of 000w-->
     <style>img[alt="www.000webhost.com"]{display:none;}</style>
-	
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Human Resource Management Sysytem</title>
 
+	<!--fonts-->
+	<link rel="stylesheet" href="https://use.typekit.net/nfp7kim.css">
+	<!--<link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&display=swap" rel="stylesheet">-->
+	<!--<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">-->
+    <!-- for gooey --->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"/>
     <!-- Bootstrap -->
     <link href="../../resource/css/bootstrap.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../../resource/css/font-awesome.css" rel="stylesheet">
+	<!--for sticky gooey menu-->
     <!-- NProgress -->
     <link href="../../resource/css/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
@@ -27,21 +34,20 @@
     <!-- bootstrap-daterangepicker -->
     <link href="../../resource/css/daterangepicker.css" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="../../resource/css/custom.css" rel="stylesheet">
+    <link type="text/css" href="../../resource/css/custom.css" rel="stylesheet">
 
 
-	<link rel="stylesheet" href="https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.css">
-
-  </head>
+</head>
 
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <!-- side and top bar include -->
+        
+		<!-- side and top bar include -->
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="../admin/dashboard.html" class="site_title"><i class="fa fa-ils"></i> <span>Sunny Group</span></a>
+                    <a href="../admin/dashboard.php" class="site_title"><i class="fa fa-asterisk"></i> <span>Sunny Group</span></a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -49,7 +55,7 @@
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
-                        <img src="../../resource/images/misha.jpg" alt="..." class="img-circle profile_img">
+                        <img src="../../resource/images/misha.jpg" alt="..." class="img-circle profile_img logo">
                     </div>
                     <div class="profile_info">
                         <span>Hello,</span>
@@ -68,23 +74,23 @@
                             <li>
                                 <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="../admin/dashboard.html">Dashboard</a></li>
+                                    <li><a href="../admin/dashboard.php">Dashboard</a></li>
                                 </ul>
                             </li>
 
         					<li>
                                 <a><i class="fa fa-industry"></i>Industry<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="../industry/departments.html">Departments</a></li>
-                                    <li><a href="../industry/designations.html">Designations</a></li>
+                                    <li><a href="../industry/departments.php">Departments</a></li>
+                                    <li><a href="../industry/designations.php">Designations</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a><i class="fa fa-users"></i>Employees<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="../employee/createEmployee.html">Create Employee</a></li>
-                                    <li><a href="../employee/employeeHistory.html">Employee History</a></li>
+                                    <li><a href="../employee/createEmployee.php">Create Employee</a></li>
+                                    <li><a href="../employee/employeeHistory.php">Employee History</a></li>
                                 </ul>
                             </li>
 
@@ -92,7 +98,7 @@
                                 <a><i class="fa fa-comments-o"></i>Notice Board <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="../admin/sendNotice.html">Create Notice</a></li>
-                                    <li><a href="../noticeBoard/noticeBoard.html">Notice History</a></li>
+                                      <li><a href="../noticeBoard/noticeBoard.html">Notice History</a></li>
                                 </ul>
                             </li>
 
@@ -141,18 +147,26 @@
         				    <li>
                                 <a><i class="fa fa-envelope-o"></i>Conference<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-        					     	<li><a href="../inbox/inbox.html">Inbox</a></li>
-        							<li><a href="https://meet.google.com/">Meet</a></li>
+                    					     	<li><a href="../inbox/inbox.html">Inbox</a></li>
+                    					   		<li><a href="https://meet.google.com/">Meet</a></li>
                                 </ul>
                             </li>
 
-        					<li>
+
+        				         	<li>
                                 <a><i class="fa fa-briefcase"></i>Job Vacancies<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
         					     	<li><a href="../admin/jobApplications.html">Applications</a></li>
                                     <li><a href="../admin/addVacancies.html">Add Vacancies</a></li>
                                 </ul>
                             </li>
+
+							<li>
+                        <a><i class="fa fa-laptop"></i> Guidelines <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="../../resource/uploads/guidelines/guideline.pdf">Site Manual</a></li>
+                        </ul>
+                    </li>
                         </ul>
                     </div>
 
@@ -165,13 +179,15 @@
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </a>
 
-                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                    <a data-toggle="tooltip" data-placement="top" title="Main Site" href="../../../index.html">
+                        <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Dark Mode">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+					<!--<a data-toggle="tooltip" data-placement="top" id="switch" type="checkbox" name="theme" title="Dark Mode">-->
+                    <a data-toggle="tooltip" data-placement="top" title="Flat Theme">
+                        <!--<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>-->
+						<input type="checkbox" id="switch" name="theme" /><label for="switch"></label>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="../../index.html">
+                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="../../src/store/Logout.php">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -190,13 +206,13 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="../../resource/images/misha.jpg" alt="">Imtiaz Misha
+                                <img class="logo "src="../../resource/images/misha.jpg" alt="">Imtiaz Misha
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
                                 <li><a href="javascript:;">Visit Profile</a></li>
         				            		<li><a href="javascript:;">Change Password</a></li>
-                                <li><a href="../../index.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                <li><a href="../../src/store/Logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                             </ul>
                         </li>
 
@@ -424,22 +440,29 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+		
+		<!--gooey-->
+				 <div class="fabs" onclick="toggleBtn()">
+  				  <div class="action">
+      					<i class="fas fa-plus" id="add"></i>
+      					<i class="fas fa-times" id="remove" style="display: none"></i>
+  				  </div>
+
+  				  <div class="btns">
+      					<a href="../../src/store/Logout.php" class="g-btn"><i class="glyphicon glyphicon-off"></i></a>
+      					<a href="../../src/store/sitesettings.php" class="g-btn"><i class="glyphicon glyphicon-cog"></i></a>
+      					<a href="" class="g-btn"><i class="glyphicon glyphicon-flash"></i></a>
+      					<a href="../../../index.php" class="g-btn"><i class="glyphicon glyphicon-send"></i></a>
+  				  </div>
+				</div>	
+				
           <div class="">
             <div class="page-title">
               <div class="title_left">
                 <h3>Chat Box</h3>
               </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              
             </div>
 
             <div class="clearfix"></div>
@@ -614,6 +637,15 @@
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js"></script>-->
  <script src="https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.js"></script>
+ <!--darkmode-->
+<script src="../../resource/js/darkmode-js.min.js"></script>
+<script src="../../resource/js/darkmode-js.js"></script>
+
+<!--theme changer-->
+<script src="../../resource/js/flat-theme.js"></script>
+
+<!--gooey-->
+<script src="../../resource/js/gooey-menu.js"></script>
 
   </body>
 </html>

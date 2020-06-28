@@ -44,6 +44,12 @@ $employee=$conn->getAll("SELECT * FROM `employees`");
     <link href="../../resource/css/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="../../resource/css/green.css" rel="stylesheet">
+	<!-- Datatables -->
+    <link href="../../resource/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="../../resource/css/buttons.bootstrap.css" rel="stylesheet">
+    <link href="../../resource/css/fixedHeader.bootstrap.css" rel="stylesheet">
+    <link href="../../resource/css/responsive.bootstrap.css" rel="stylesheet">
+    <link href="../../resource/css/scroller.bootstrap.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     <link href="../../resource/css/bootstrap-progressbar-3.3.4.css" rel="stylesheet">
     <!-- JQVMap -->
@@ -140,21 +146,21 @@ $employee=$conn->getAll("SELECT * FROM `employees`");
 
                                 </p>
 
-                                <table width="100%" class="display nowrap table table-hover table-striped table-bordered dataTable" id="datatable-buttons" role="grid" aria-describedby="attendance123_info" style="width: 100%;" cellspacing="0">
+                                <table width="100%" id="datatable-buttons" class="display nowrap table table-hover table-striped table-bordered dataTable" role="grid" aria-describedby="attendance123_info" style="width: 100%;" cellspacing="0">
 
                                       <thead>
                                         <tr role="row">
-                    						            <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 100px;" aria-label="Employee Name: activate to sort column ascending" rowspan="1" colspan="1">First Name</th>
+                    						<th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 100px;" aria-label="Employee Name: activate to sort column ascending" rowspan="1" colspan="1">First Name</th>
                                             <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 100px;" aria-label="Employee Name: activate to sort column ascending" rowspan="1" colspan="1">Last Name</th>
                                             <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 100px;" aria-label="Employee Name: activate to sort column ascending" rowspan="1" colspan="1">Username</th>
                                             <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 135px;" aria-label="Email: activate to sort column ascending" rowspan="1" colspan="1">Email</th>
-                    					             	<th tabindex="0" class="sorting_desc" aria-controls="attendance123" style="width: 30px;" aria-label="Gender : activate to sort column ascending" aria-sort="descending" rowspan="1" colspan="1">Gender</th>
-                    					             	<th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 50px;" aria-label="Role: activate to sort column ascending" rowspan="1" colspan="1">Role</th>
+                    					    <th tabindex="0" class="sorting_desc" aria-controls="attendance123" style="width: 30px;" aria-label="Gender : activate to sort column ascending" aria-sort="descending" rowspan="1" colspan="1">Gender</th>
+                    					    <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 50px;" aria-label="Role: activate to sort column ascending" rowspan="1" colspan="1">Role</th>
                                             <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 81px;" aria-label="Mobile: activate to sort column ascending" rowspan="1" colspan="1">Mobile</th>
-                    					            	<th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 119px;" aria-label="Joining Date: activate to sort column ascending" rowspan="1" colspan="1">Joining Date</th>
+                    					    <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 119px;" aria-label="Joining Date: activate to sort column ascending" rowspan="1" colspan="1">Joining Date</th>
                                             <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 35px;" aria-label="Status: activate to sort column ascending" rowspan="1" colspan="1">Status</th>
-                    				            		<th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 30px;" aria-label="Action: activate to sort column ascending" rowspan="1" colspan="1">Action</th>
-                    				          	</tr>
+                    				        <th tabindex="0" class="sorting" aria-controls="attendance123" style="width: 30px;" aria-label="Action: activate to sort column ascending" rowspan="1" colspan="1">Action</th>
+                    				    </tr>
                                       </thead>
                                     <tbody>
                                     <?php

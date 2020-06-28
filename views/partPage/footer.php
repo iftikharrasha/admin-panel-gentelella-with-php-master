@@ -41,6 +41,23 @@
 <script src="../../resource/js/jquery.vmap.min.js"></script>
 <script src="../../resource/js/jquery.vmap.world.js"></script>
 <script src="../../resource/js/jquery.vmap.sampledata.js"></script>
+<!-- Datatables -->
+<script src="../../resource/js/jquery.dataTables.min.js"></script>
+<script src="../../resource/js/dataTables.bootstrap.min.js"></script>
+<script src="../../resource/js/dataTables.buttons.min.js"></script>
+<script src="../../resource/js/buttons.bootstrap.min.js"></script>
+<script src="../../resource/js/buttons.flash.min.js"></script>
+<script src="../../resource/js/buttons.html5.min.js"></script>
+<script src="../../resource/js/buttons.print.min.js"></script>
+<script src="../../resource/js/dataTables.fixedHeader.min.js"></script>
+<script src="../../resource/js/dataTables.keyTable.min.js"></script>
+<script src="../../resource/js/dataTables.responsive.min.js"></script>
+<script src="../../resource/js/responsive.bootstrap.js"></script>
+<script src="../../resource/js/dataTables.scroller.min.js"></script>
+<script src="../../resource/js/jszip.min.js"></script>
+<script src="../../resource/js/pdfmake.min.js"></script>
+<script src="../../resource/js/vfs_fonts.js"></script>
+
 <!-- bootstrap-daterangepicker -->
 <script src="../../resource/js/moment.min.js"></script>
 <script src="../../resource/js/daterangepicker.js"></script>
